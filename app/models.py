@@ -1,26 +1,20 @@
-from sqlalchemy import Column, Integer, String, Date, JSON, Enum
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, DateTime
+from datetime import datetime
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
-import enum
 
 Base = declarative_base()
 
-class SeverityEnum(str, enum.Enum):
-    LOW = "LOW"
-    MEDIUM = "MEDIUM"
-    HIGH = "HIGH"
-
 class Incident(Base):
-    __tablename__ = 'incidents'
+    __tablename__ = "incidents"
 
     id = Column(Integer, primary_key=True, index=True)
-    alarm_type_ids = Column(JSON)
-    status = Column(String)
-    assignees = Column(JSON)
-    tags = Column(JSON)
-    alarm_main_types = Column(JSON)
-    alarm_sub_types = Column(JSON)
+    alarm_type_ids = Column(JSONB)
+    status = Column(String, index=True)
+    assignees = Column(JSONB)
+    tags = Column(JSONB)
+    alarm_main_types = Column(JSONB)
+    alarm_sub_types = Column(JSONB)
     alarm_title = Column(String)
-    severities = Column(Enum(SeverityEnum))
-    created_at = Column(Date)
-
+    severities = Column(JSONB) 
+    created_at = Column(DateTime, default=datetime.now)
