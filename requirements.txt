@@ -7,3 +7,5 @@ httpx
 apscheduler
 python-dotenv
 pydantic[email]
+apscheduler
+requests
